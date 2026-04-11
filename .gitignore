@@ -1,0 +1,37 @@
+# === SECRETS (OBLIGATOIRE - pénalité -2 pts si absent) ===
+params.yaml
+*.pem
+*.key
+.env
+.env.*
+
+# === Python ===
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+venv/
+.venv/
+
+# === DVC ===
+/data/*.csv
+/data/*.parquet
+/models/*.pkl
+/models/*.joblib
+
+# === MLflow ===
+mlruns/
+mlartifacts/
+
+# === Docker ===
+*.log
+
+# === OS ===
+.DS_Store
+Thumbs.db
+
+# === IDE ===
+.vscode/
+.idea/
+*.swp
