@@ -1,0 +1,12 @@
+md5: 42cd6152a21b6cae84c25315fcbc7e19
+frozen: true
+deps:
+- etag: 1ddae438c4878202889b3b5ef90d3a7d-18
+  size: 150828752
+  hash: md5
+  path: s3://fraud-mlops-team/data/raw/creditcard.csv
+outs:
+- md5: e90efcb83d69faf99fcab8b0255024de
+  size: 150828752
+  hash: md5
+  path: creditcard.csv

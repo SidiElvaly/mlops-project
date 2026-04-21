@@ -8,3 +8,14 @@ xgboost
 scikit-learn
 pandas
 numpy
+pandas
+numpy
+scikit-learn
+xgboost
+mlflow
+dvc[s3]
+boto3
+pyyaml
+joblib
+matplotlib
+seaborn
