@@ -1,0 +1,67 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:  # allows manual trigger from Actions tab
+
+jobs:
+  deploy:
+    name: Deploy FastAPI to EC2
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up SSH key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
+
+      - name: Add EC2 to known hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to EC2
+        env:
+          EC2_HOST: ${{ secrets.EC2_HOST }}
+          EC2_USER: ${{ secrets.EC2_USER }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
+          MLFLOW_TRACKING_URI: ${{ secrets.MLFLOW_TRACKING_URI }}
+        run: |
+          ssh $EC2_USER@$EC2_HOST << EOF
+            set -e
+            cd ~/mlops-project || git clone https://github.com/SidiElvaly/mlops-project.git ~/mlops-project && cd ~/mlops-project
+            git fetch origin main
+            git checkout main
+            git pull origin main
+
+            # Create .env for docker-compose
+            cat > .env << ENVEOF
+          MLFLOW_TRACKING_URI=$MLFLOW_TRACKING_URI
+          AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+          AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+          AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
+          MODEL_NAME=fraud-detector
+          MODEL_STAGE=Production
+          ENVEOF
+
+            # Build and restart API
+            docker compose down || true
+            docker compose build
+            docker compose up -d
+          EOF
+
+      - name: Wait for API to start
+        run: sleep 30
+
+      - name: Health check
+        run: |
+          curl --fail --max-time 10 http://${{ secrets.EC2_HOST }}:8000/ \
+            && echo "✅ API is healthy!" \
+            || (echo "❌ API did not respond" && exit 1)
