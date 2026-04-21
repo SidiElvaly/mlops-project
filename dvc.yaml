@@ -1,1 +1,56 @@
-# TODO: Définir les stages DVC
+stages:
+  preprocess:
+    cmd: python src/preprocess.py
+    deps:
+      - src/preprocess.py
+      - data/raw/creditcard.csv
+    params:
+      - data.raw_path
+      - data.processed_dir
+      - data.target
+      - data.test_size
+      - data.random_state
+    outs:
+      - data/processed
+      - models/scaler.pkl
+
+  train:
+    cmd: python src/train.py
+    deps:
+      - src/train.py
+      - data/processed
+    params:
+      - mlflow.tracking_uri
+      - mlflow.experiment_name
+      - model.n_estimators
+      - model.max_depth
+      - model.learning_rate
+      - model.subsample
+      - model.colsample_bytree
+      - data.random_state
+    outs:
+      - models/model.pkl
+      - models/run_id.txt
+
+  evaluate:
+    cmd: python src/evaluate.py
+    deps:
+      - src/evaluate.py
+      - data/processed
+      - models/model.pkl
+      - models/run_id.txt
+    params:
+      - mlflow.tracking_uri
+    outs:
+      - models/metrics.json
+
+  register:
+    cmd: python src/register.py
+    deps:
+      - src/register.py
+      - models/metrics.json
+      - models/run_id.txt
+    params:
+      - mlflow.tracking_uri
+      - mlflow.registered_model_name
+      - thresholds.auc_pr_min
