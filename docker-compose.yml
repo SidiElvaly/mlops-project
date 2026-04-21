@@ -1,0 +1,23 @@
+services:
+  fraud-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fraud-api
+    image: fraud-api:latest
+    ports:
+      - "8000:8000"
+    environment:
+      MLFLOW_TRACKING_URI: ${MLFLOW_TRACKING_URI}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION:-eu-west-3}
+      MODEL_NAME: ${MODEL_NAME:-fraud-detector}
+      MODEL_STAGE: ${MODEL_STAGE:-Production}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s

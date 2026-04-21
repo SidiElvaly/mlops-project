@@ -1,3 +1,13 @@
+# TODO: Ajouter les dépendances
+fastapi
+uvicorn[standard]
+pydantic
+mlflow
+boto3
+xgboost
+scikit-learn
+pandas
+numpy
 pandas
 numpy
 scikit-learn
