@@ -1,1 +1,2 @@
-# TODO: Ajouter les dépendances
+# TODO: Ajouter les dépendances nécessaires pour le projet      
+# Requirements for Fraud Detection API
