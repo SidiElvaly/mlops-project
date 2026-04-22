@@ -8,7 +8,8 @@ import pandas as pd
 from fastapi import FastAPI, HTTPException
 
 from src.api.schemas import Transaction, PredictionResponse, HealthResponse
-
+from fastapi.staticfiles import StaticFiles
+app.mount("/ui", StaticFiles(directory="frontend", html=True), name="frontend")
 # ---------------------------------------------------------------------------
 # Logging
 # ---------------------------------------------------------------------------
