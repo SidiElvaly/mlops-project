@@ -3,7 +3,7 @@ import logging
 from contextlib import asynccontextmanager
 
 import mlflow
-import mlflow.pyfunc
+import mlflow.sklearn
 import pandas as pd
 from fastapi import FastAPI, HTTPException
 
@@ -43,7 +43,7 @@ async def lifespan(app: FastAPI):
     model_uri = f"models:/{MODEL_NAME}/{MODEL_STAGE}"
     try:
         logger.info("Loading model from %s …", model_uri)
-        loaded = mlflow.pyfunc.load_model(model_uri)
+        loaded = mlflow.sklearn.load_model(model_uri)
 
         # Retrieve the actual version number from the registry
         client = mlflow.tracking.MlflowClient()
@@ -125,18 +125,8 @@ def predict(transaction: Transaction):
         )
         data = pd.DataFrame([transaction.model_dump()])[feature_order]
 
-        # Predict — mlflow pyfunc returns a DataFrame or ndarray
-        raw = model_state["model"].predict(data)
-
-        # Handle both predict_proba-style (probability) and binary output
-        if hasattr(raw, "iloc"):
-            score = float(raw.iloc[0])
-        else:
-            score = float(raw[0])
-
-        # If score is already a probability (0–1), use it directly.
-        # If it is a binary label (0 or 1), treat 1 as certain fraud.
-        probability = score if 0.0 <= score <= 1.0 else float(score > 0.5)
+        proba = model_state["model"].predict_proba(data)
+        probability = float(proba[0][1])
         is_fraud = probability >= 0.5
 
         return PredictionResponse(
