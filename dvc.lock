@@ -38,8 +38,8 @@ stages:
       nfiles: 4
     - path: src/train.py
       hash: md5
-      md5: ff5245d46cc9007ca3859452723c0984
-      size: 2071
+      md5: bc0e7aa3a1befe010e1430c3f4dcf0c8
+      size: 2177
     params:
       params.yaml:
         data.random_state: 42
@@ -57,7 +57,7 @@ stages:
       size: 535613
     - path: models/run_id.txt
       hash: md5
-      md5: d95e715c1ef62f3a1c6f9f68e53c925d
+      md5: 0b56f2cd631701340780a582d884cd43
       size: 32
   evaluate:
     cmd: python src/evaluate.py
@@ -73,7 +73,7 @@ stages:
       size: 535613
     - path: models/run_id.txt
       hash: md5
-      md5: d95e715c1ef62f3a1c6f9f68e53c925d
+      md5: 0b56f2cd631701340780a582d884cd43
       size: 32
     - path: src/evaluate.py
       hash: md5
@@ -96,7 +96,7 @@ stages:
       size: 285
     - path: models/run_id.txt
       hash: md5
-      md5: d95e715c1ef62f3a1c6f9f68e53c925d
+      md5: 0b56f2cd631701340780a582d884cd43
       size: 32
     - path: src/register.py
       hash: md5
