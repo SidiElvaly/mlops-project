@@ -38,8 +38,7 @@ jobs:
             set -e
             cd ~/mlops-project || git clone https://github.com/SidiElvaly/mlops-project.git ~/mlops-project && cd ~/mlops-project
             git fetch origin main
-            git checkout main
-            git pull origin main
+            git reset --hard origin/main
 
             # Create .env for docker-compose
             cat > .env << ENVEOF
