@@ -46,6 +46,8 @@ jobs:
             # Ensure DVC is installed
             pip install --user 'dvc[s3]' || true
             export PATH="\$HOME/.local/bin:\$PATH"
+            # Activate the ML pipeline venv (contains python + xgboost + sklearn)
+            source ~/.venv/mlpipeline/bin/activate
 
             # Pull current artifacts, reproduce pipeline, push new artifacts
             dvc pull || echo "No existing artifacts to pull"
