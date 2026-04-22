@@ -256,7 +256,7 @@ async function predictFraud(payload) {
 
     const data = await response.json();
     return {
-      fraud:         data.fraud ?? (data.prediction === 1),
+      fraud:         data.is_fraud ?? (data.prediction === 1),
       probability:   data.probability ?? data.fraud_probability ?? 0,
       model_version: data.model_version ?? MODEL_VERSION,
     };
