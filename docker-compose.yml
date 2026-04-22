@@ -12,7 +12,7 @@ services:
       AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
       AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
       AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION:-eu-west-3}
-      MODEL_NAME: ${MODEL_NAME:-fraud-detector}
+      MODEL_NAME: ${MODEL_NAME:-fraud-detector-model}
       MODEL_STAGE: ${MODEL_STAGE:-Production}
     restart: unless-stopped
     healthcheck:
