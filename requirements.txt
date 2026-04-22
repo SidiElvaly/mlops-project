@@ -1,4 +1,4 @@
-# TODO: Ajouter les dépendances
+
 fastapi
 uvicorn[standard]
 pydantic
