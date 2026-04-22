@@ -2,7 +2,7 @@ from pathlib import Path
 
 import joblib
 import mlflow
-import mlflow.xgboost
+import mlflow.sklearn
 import pandas as pd
 import yaml
 from xgboost import XGBClassifier
@@ -51,7 +51,11 @@ def main() -> None:
         joblib.dump(model, models_dir / "model.pkl")
 
         mlflow.log_params(model_params)
-        mlflow.xgboost.log_model(model, artifact_path="model")
+        mlflow.sklearn.log_model(
+            sk_model=model,
+            artifact_path="model",
+            registered_model_name="fraud-detection-model"
+        )
 
         with open(models_dir / "run_id.txt", "w", encoding="utf-8") as file:
             file.write(run.info.run_id)
