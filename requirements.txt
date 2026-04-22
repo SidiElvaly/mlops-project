@@ -1,4 +1,7 @@
 
+# TODO: Ajouter les dépendances nécessaires pour le projet      
+# Requirements for Fraud Detection API
+# TODO: Ajouter les dépendances
 fastapi
 uvicorn[standard]
 pydantic
