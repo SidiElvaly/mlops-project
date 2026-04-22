@@ -3,12 +3,12 @@ import logging
 from contextlib import asynccontextmanager
 
 import mlflow
-import mlflow.pyfunc
+import mlflow.sklearn 
 import pandas as pd
 from fastapi import FastAPI, HTTPException
+from fastapi.staticfiles import StaticFiles
 
 from src.api.schemas import Transaction, PredictionResponse, HealthResponse
-from fastapi.staticfiles import StaticFiles
 
 # ---------------------------------------------------------------------------
 # Logging
@@ -44,7 +44,7 @@ async def lifespan(app: FastAPI):
     model_uri = f"models:/{MODEL_NAME}/{MODEL_STAGE}"
     try:
         logger.info("Loading model from %s …", model_uri)
-        loaded = mlflow.pyfunc.load_model(model_uri)
+        loaded = mlflow.sklearn.load_model(model_uri)  # ← sklearn load gives us predict_proba
 
         # Retrieve the actual version number from the registry
         client = mlflow.tracking.MlflowClient()
@@ -77,7 +77,10 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+# Mount the frontend static files AFTER app is defined
 app.mount("/ui", StaticFiles(directory="frontend", html=True), name="frontend")
+
+
 # ---------------------------------------------------------------------------
 # GET /  —  health check
 # ---------------------------------------------------------------------------
@@ -107,8 +110,8 @@ def predict(transaction: Transaction):
     """
     Accepts a single credit card transaction and returns a fraud prediction.
 
-    - **is_fraud**: `true` if the model predicts fraud.
-    - **probability**: fraud probability between 0 and 1.
+    - **is_fraud**: `true` if the model predicts fraud (probability >= 0.5).
+    - **probability**: continuous fraud probability between 0 and 1.
     - **model_version**: the MLflow model version that produced this result.
     """
     if model_state["model"] is None:
@@ -126,18 +129,10 @@ def predict(transaction: Transaction):
         )
         data = pd.DataFrame([transaction.model_dump()])[feature_order]
 
-        # Predict — mlflow pyfunc returns a DataFrame or ndarray
-        raw = model_state["model"].predict(data)
-
-        # Handle both predict_proba-style (probability) and binary output
-        if hasattr(raw, "iloc"):
-            score = float(raw.iloc[0])
-        else:
-            score = float(raw[0])
-
-        # If score is already a probability (0–1), use it directly.
-        # If it is a binary label (0 or 1), treat 1 as certain fraud.
-        probability = score if 0.0 <= score <= 1.0 else float(score > 0.5)
+        # Use predict_proba to get continuous probabilities
+        # Returns array like [[P(safe), P(fraud)]] for each row
+        proba = model_state["model"].predict_proba(data)
+        probability = float(proba[0][1])  # Second column = P(fraud)
         is_fraud = probability >= 0.5
 
         return PredictionResponse(
