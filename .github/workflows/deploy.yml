@@ -47,7 +47,7 @@ jobs:
           AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
           AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
           AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
-          MODEL_NAME=fraud-detector
+          MODEL_NAME=fraud-detection-model
           MODEL_STAGE=Production
           ENVEOF
 
