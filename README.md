@@ -38,19 +38,19 @@
 
 ---
 
-## 🎯 Project Overview
+##  Project Overview
 
 This project implements an **end-to-end MLOps pipeline** for detecting fraudulent credit card transactions, built as part of the **MLOps II course at SupNum (DEML M2)** under Professor **Yehdhih ANNA**.
 
 The system combines machine learning operations best practices with cloud-native deployment:
 
-- 🤖 **XGBoost model** trained on 284,807 real transactions with 0.17% fraud rate
-- 📊 **MLflow Registry** for model versioning and stage management
-- 🔄 **DVC pipeline** for reproducible data processing and training
-- 🐳 **Dockerized FastAPI** backend serving predictions in real-time
-- 🎨 **Interactive web UI** for non-technical users
-- 🚀 **GitHub Actions** for automated deployment and retraining
-- ☁️ **AWS infrastructure** (EC2 + S3) with proper IAM security
+-  **XGBoost model** trained on 284,807 real transactions with 0.17% fraud rate
+-  **MLflow Registry** for model versioning and stage management
+-  **DVC pipeline** for reproducible data processing and training
+-  **Dockerized FastAPI** backend serving predictions in real-time
+-  **Interactive web UI** for non-technical users
+- **GitHub Actions** for automated deployment and retraining
+- **AWS infrastructure** (EC2 + S3) with proper IAM security
 
 ---
 
@@ -60,8 +60,8 @@ The system combines machine learning operations best practices with cloud-native
 |--------|-----------|------|--------|
 | **Sidi Elvaly Souleymane** | 21031 | DevOps & CI/CD Lead | `dev-21031` |
 | **Zidbih** | 24264 | ML Engineering & DVC | `dev-24264` |
-| **Emani** | 21068 | FastAPI Backend | `dev-21068` |
-| **Khatu** | 21016 | Frontend & Documentation | `dev-21016` |
+| **Emani** | 21068 | Frontend | `dev-21068` |
+| **Khatu** | 21016 |  FastAPI Backend | `dev-21016` |
 
 ---
 
@@ -97,26 +97,26 @@ The system combines machine learning operations best practices with cloud-native
 
 | Component | Purpose | Location |
 |-----------|---------|----------|
-| 🐙 **GitHub** | Source control + CI trigger | Cloud |
-| ⚙️ **GitHub Actions** | Automate deploy + retrain | Cloud |
-| 🖥️ **AWS EC2** | Application host | `eu-west-3` |
-| 🐳 **Docker** | FastAPI container | On EC2 |
-| 📊 **MLflow** | Model registry + tracking | On EC2 (port 5000) |
-| 🔄 **DVC** | Pipeline + data versioning | On EC2 |
-| 🪣 **AWS S3** | Artifact + data storage | Cloud |
+| **GitHub** | Source control + CI trigger | Cloud |
+| **GitHub Actions** | Automate deploy + retrain | Cloud |
+| **AWS EC2** | Application host | `eu-west-3` |
+| **Docker** | FastAPI container | On EC2 |
+| **MLflow** | Model registry + tracking | On EC2 (port 5000) |
+| **DVC** | Pipeline + data versioning | On EC2 |
+| **AWS S3** | Artifact + data storage | Cloud |
 
 ---
 
-## 🚀 Live Services
+##  Live Services
 
 All services are live and accessible:
 
 | Service | URL | Description |
 |---------|-----|-------------|
-| 🎨 **Web UI** | [http://13.36.24.137:8000/ui](http://13.36.24.137:8000/ui) | Interactive fraud prediction form |
-| 📚 **Swagger Docs** | [http://13.36.24.137:8000/docs](http://13.36.24.137:8000/docs) | OpenAPI documentation |
-| ❤️ **API Health** | [http://13.36.24.137:8000/](http://13.36.24.137:8000/) | Service health check |
-| 📊 **MLflow UI** | [http://13.36.24.137:5000](http://13.36.24.137:5000) | Experiment tracking & registry |
+|  **Web UI** | [http://13.36.24.137:8000/ui](http://13.36.24.137:8000/ui) | Interactive fraud prediction form |
+|  **Swagger Docs** | [http://13.36.24.137:8000/docs](http://13.36.24.137:8000/docs) | OpenAPI documentation |
+|  **API Health** | [http://13.36.24.137:8000/](http://13.36.24.137:8000/) | Service health check |
+|  **MLflow UI** | [http://13.36.24.137:5000](http://13.36.24.137:5000) | Experiment tracking & registry |
 
 ### API Endpoints
 
@@ -312,10 +312,10 @@ Our XGBoost classifier achieves excellent performance on a highly imbalanced dat
 
 | Metric | Score | Notes |
 |--------|-------|-------|
-| 🎯 **AUC-PR** | **0.876** | Primary metric for imbalanced data |
-| 🔍 **Recall** | 83.7% | Catches 82 / 98 frauds |
-| 🎯 **Precision** | 88.2% | Low false-alarm rate |
-| ⚖️ **F1 Score** | 85.8% | Balanced measure |
+|  **AUC-PR** | **0.876** | Primary metric for imbalanced data |
+| **Recall** | 83.7% | Catches 82 / 98 frauds |
+|  **Precision** | 88.2% | Low false-alarm rate |
+|  **F1 Score** | 85.8% | Balanced measure |
 
 ### Confusion Matrix (Test Set)
 
