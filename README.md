@@ -68,46 +68,7 @@ The system combines machine learning operations best practices with cloud-native
 
 <div align="center">
 
-<svg width="800" height="480" viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M2 1 L 8 5 L 2 9" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round"/>
-    </marker>
-  </defs>
-
-  <rect x="280" y="30" width="240" height="70" rx="12" fill="#EEEDFE" stroke="#7F77DD" stroke-width="2"/>
-  <text x="400" y="60" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#26215C">GitHub</text>
-  <text x="400" y="82" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#534AB7">Source control + PR workflow</text>
-
-  <line x1="400" y1="100" x2="400" y2="130" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
-
-  <rect x="280" y="140" width="240" height="70" rx="12" fill="#E6F1FB" stroke="#378ADD" stroke-width="2"/>
-  <text x="400" y="170" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#042C53">GitHub Actions</text>
-  <text x="400" y="192" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#185FA5">deploy.yml + retrain.yml</text>
-
-  <line x1="400" y1="210" x2="400" y2="240" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
-
-  <rect x="40" y="250" width="720" height="130" rx="14" fill="#E1F5EE" stroke="#1D9E75" stroke-width="2"/>
-  <text x="400" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#04342C">AWS EC2 (Paris)</text>
-
-  <rect x="80" y="300" width="190" height="60" rx="10" fill="#9FE1CB" stroke="#0F6E56" stroke-width="1.5"/>
-  <text x="175" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#04342C">FastAPI</text>
-  <text x="175" y="345" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#085041">Docker • Port 8000</text>
-
-  <rect x="305" y="300" width="190" height="60" rx="10" fill="#9FE1CB" stroke="#0F6E56" stroke-width="1.5"/>
-  <text x="400" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#04342C">MLflow</text>
-  <text x="400" y="345" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#085041">Registry • Port 5000</text>
-
-  <rect x="530" y="300" width="190" height="60" rx="10" fill="#9FE1CB" stroke="#0F6E56" stroke-width="1.5"/>
-  <text x="625" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="600" fill="#04342C">DVC</text>
-  <text x="625" y="345" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#085041">4-stage pipeline</text>
-
-  <line x1="400" y1="380" x2="400" y2="410" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
-
-  <rect x="280" y="420" width="240" height="55" rx="12" fill="#FAEEDA" stroke="#BA7517" stroke-width="2"/>
-  <text x="400" y="445" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#412402">AWS S3</text>
-  <text x="400" y="465" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#633806">Data + model artifacts</text>
-</svg>
+![Architecture Diagram](docs/architecture.png)
 
 </div>
 
@@ -212,6 +173,9 @@ mlops-project/
 │   ├── index.html              # Multi-step prediction wizard
 │   ├── script.js               # API client + UI logic
 │   └── styles.css              # Responsive design
+│
+├── docs/
+│   └── architecture.png        # Architecture diagram
 │
 ├── models/                     # DVC-tracked (not in git)
 ├── data/                       # DVC-tracked (not in git)
