@@ -1,9 +1,26 @@
 name: Retrain Model
 
 on:
-  workflow_dispatch:  # manual trigger from Actions tab
+  # Manual trigger — always available from Actions tab
+  workflow_dispatch:
+
+  # Scheduled weekly retrain (Sunday 02:00 UTC)
   schedule:
-    - cron: '0 2 * * 0'  # every Sunday at 02:00 UTC
+    - cron: '0 2 * * 0'
+
+  # Auto-trigger when ML-relevant files change on main
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/preprocess.py'
+      - 'src/train.py'
+      - 'src/evaluate.py'
+      - 'src/register.py'
+      - 'dvc.yaml'
+      - 'params.yaml'
+      - 'requirements.txt'
+      - 'data/raw/**.dvc'
 
 jobs:
   retrain:
@@ -41,12 +58,10 @@ jobs:
             export MLFLOW_TRACKING_URI=$MLFLOW_TRACKING_URI
 
             cd ~/mlops-project
+            git reset --hard origin/main
             git pull origin main
 
-            # Ensure DVC is installed
-            pip install --user 'dvc[s3]' || true
-            export PATH="\$HOME/.local/bin:\$PATH"
-            # Activate the ML pipeline venv (contains python + xgboost + sklearn)
+            # Activate the ML pipeline venv (has python + xgboost + sklearn)
             source ~/.venv/mlpipeline/bin/activate
 
             # Pull current artifacts, reproduce pipeline, push new artifacts
