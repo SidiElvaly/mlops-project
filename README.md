@@ -200,21 +200,15 @@ mlops-project/
 │   ├── script.js               # API client + UI logic
 │   └── styles.css              # Responsive design
 │
-├── scripts/
-│   ├── setup_ec2.sh            # Fresh EC2 bootstrap
-│   ├── setup_dvc.sh            # DVC + S3 remote init
-│   └── setup_branches.sh       # Git branch structure
-│
 ├── models/                     # DVC-tracked (not in git)
 ├── data/                       # DVC-tracked (not in git)
-├── tests/                      # Test suite
 │
 ├── Dockerfile                  # Multi-stage build, non-root user
 ├── docker-compose.yml          # Service orchestration + env
 ├── dvc.yaml                    # 4-stage ML pipeline definition
 ├── params.yaml                 # Model hyperparameters (gitignored)
 ├── requirements.txt            # Python dependencies
-└── README.md                   # You are here 📍
+└── README.md                   
 ```
 
 ---
@@ -256,24 +250,6 @@ docker compose up -d
 curl http://localhost:8000/
 ```
 
-### For Operators (Deploy to Fresh EC2)
-
-```bash
-# On a fresh Ubuntu 24.04 EC2 instance:
-ssh ubuntu@<YOUR_EC2_IP>
-
-# Run our setup script
-git clone https://github.com/SidiElvaly/mlops-project.git
-cd mlops-project
-bash scripts/setup_ec2.sh
-bash scripts/setup_dvc.sh
-
-# Configure AWS + MLflow service (see INFRASTRUCTURE.md)
-aws configure
-```
-
----
-
 ## 🔄 CI/CD Workflows
 
 Two automated workflows orchestrate the entire pipeline:
@@ -313,7 +289,7 @@ Steps:
   8. Restart fraud-api to load new model
 ```
 
-✅ **Model can be retrained on demand or automatically**
+**Model can be retrained on demand or automatically**
 
 ### GitHub Secrets Configured
 
@@ -393,10 +369,10 @@ We use conventional commits for clear history:
 
 ### Branch Protection
 
-- ❌ **No direct pushes to `main`** (ruleset enforced)
-- ✅ **Pull requests required** for all changes
-- ✅ **Force pushes blocked**
-- ✅ **Deletions restricted**
+- **No direct pushes to `main`** (ruleset enforced)
+- **Pull requests required** for all changes
+- **Force pushes blocked**
+- **Deletions restricted**
 
 ---
 
@@ -416,44 +392,6 @@ The dataset is stored in `s3://fraud-mlops-team/data/raw/` and versioned via DVC
 
 ---
 
-## 🎓 Academic Context
 
-- **Course:** MLOps II (Data Engineering & Machine Learning M2)
-- **Institution:** SupNum — Université des Sciences, de Technologies et de Médecine
-- **Professor:** Yehdhih ANNA
-- **Year:** 2025–2026
 
-### Evaluation Rubric Coverage
 
-| Section | Points | Coverage |
-|---------|--------|----------|
-| A — MLflow + S3 + Registry | 3 | ✅ Complete |
-| B — DVC pipeline (4 stages) | 4 | ✅ Complete |
-| C — FastAPI + Docker + UI | 4 | ✅ Complete |
-| D — CI/CD (2 workflows) | 5 | ✅ Both green |
-| E — Git branches & commits | 3 | ✅ 5 branches |
-| **Total** | **19** | ✅ **19/19** |
-
----
-
-## 📄 Additional Documentation
-
-- [`INFRASTRUCTURE.md`](./INFRASTRUCTURE.md) — Detailed AWS + MLflow setup
-- [`scripts/`](./scripts/) — Bootstrap scripts for reproducibility
-- [Swagger API Docs](http://13.36.24.137:8000/docs) — Interactive API exploration
-
----
-
-## 📜 License
-
-This project was developed for academic purposes as part of the MLOps II course at SupNum. Feel free to fork, study, and adapt for learning.
-
----
-
-<div align="center">
-
-**Built with dedication by Team 4 — April 2026** 🚀
-
-*Fraud detection that ships on every commit.*
-
-</div>
