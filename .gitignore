@@ -1,4 +1,4 @@
-# === SECRETS (OBLIGATOIRE - pénalité -2 pts si absent) ===
+# === Secrets ===
 params.yaml
 *.pem
 *.key
@@ -14,17 +14,19 @@ build/
 venv/
 .venv/
 
-# === DVC ===
-/data/*.csv
-/data/*.parquet
-/models/*.pkl
-/models/*.joblib
+# === DVC-generated data and models ===
+data/raw/*.csv
+data/processed/
+models/*.pkl
+models/*.joblib
+models/metrics.json
+models/run_id.txt
 
-# === MLflow ===
+# === MLflow local artifacts ===
 mlruns/
 mlartifacts/
 
-# === Docker ===
+# === Logs ===
 *.log
 
 # === OS ===

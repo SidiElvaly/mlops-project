@@ -1,1 +1,299 @@
-<!-- TODO: À implémenter -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fraud Detection System</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <div class="navbar-logo">
+        <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <polyline points="9 12 11 14 15 10"/>
+        </svg>
+        <span>Fraud Detection System</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main App Container -->
+  <main class="main-container">
+
+    <!-- ===== SCREEN: Welcome ===== -->
+    <section class="screen active" id="screen-welcome">
+      <div class="card card-centered">
+        <div class="icon-circle icon-circle--green">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <polyline points="9 12 11 14 15 10"/>
+          </svg>
+        </div>
+        <h1 class="card-title">Fraud Detection</h1>
+        <p class="card-subtitle">Check if a transaction is safe or fraudulent using our advanced detection model.</p>
+        <button class="btn btn-primary btn-full btn-arrow" id="btn-start">
+          Start Prediction
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- ===== SCREEN: Step 1 – Basic Details ===== -->
+    <section class="screen" id="screen-step1">
+      <div class="card">
+        <div class="step-header">
+          <div>
+            <h2 class="step-title">Basic Details</h2>
+            <p class="step-subtitle">Enter the core transaction details manually or use a helper.</p>
+          </div>
+          <div class="step-progress">
+            <span class="progress-dot active"></span>
+            <span class="progress-dot"></span>
+            <span class="progress-dot"></span>
+          </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- Quick-fill helpers -->
+        <div class="helper-row">
+          <button class="btn-helper btn-helper--green" id="btn-normal-1" title="Fill normal transaction values">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            Normal
+          </button>
+          <button class="btn-helper btn-helper--red" id="btn-fraud-1" title="Fill fraud transaction values">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            Fraud
+          </button>
+          <button class="btn-helper btn-helper--gray" id="btn-random-1" title="Fill random values">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
+            Random
+          </button>
+        </div>
+
+        <!-- Basic fields -->
+        <div class="field-group">
+          <label class="field-label" for="amount">Transaction Amount ($)</label>
+          <input class="field-input" type="number" id="amount" name="amount" placeholder="e.g. 150.00" min="0" step="0.01" />
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="time">Time (Seconds from start)</label>
+          <input class="field-input" type="number" id="time" name="time" placeholder="e.g. 3600" min="0" step="1" />
+        </div>
+
+        <div class="step-nav">
+          <button class="btn btn-primary btn-arrow" id="btn-step1-next">
+            Next
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SCREEN: Step 2 – Advanced Data ===== -->
+    <section class="screen" id="screen-step2">
+      <div class="card">
+        <div class="step-header">
+          <div>
+            <h2 class="step-title">Advanced Data</h2>
+            <p class="step-subtitle">Principal Component Analysis (PCA) features V1 to V28.</p>
+          </div>
+          <div class="step-progress">
+            <span class="progress-dot active"></span>
+            <span class="progress-dot active"></span>
+            <span class="progress-dot"></span>
+          </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- Quick-fill helpers -->
+        <div class="helper-row">
+          <button class="btn-helper btn-helper--green" id="btn-normal-2">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            Normal
+          </button>
+          <button class="btn-helper btn-helper--red" id="btn-fraud-2">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            Fraud
+          </button>
+          <button class="btn-helper btn-helper--gray" id="btn-random-2">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
+            Random
+          </button>
+        </div>
+
+        <!-- PCA Groups (collapsible) -->
+        <div class="pca-scroll-area">
+          <!-- Group A: V1–V10 -->
+          <div class="pca-group">
+            <button class="pca-group-header" data-target="group-a">
+              <span>Group A (V1 – V10)</span>
+              <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="pca-group-body" id="group-a">
+              <div class="pca-grid" id="grid-a"></div>
+            </div>
+          </div>
+
+          <!-- Group B: V11–V20 -->
+          <div class="pca-group">
+            <button class="pca-group-header" data-target="group-b">
+              <span>Group B (V11 – V20)</span>
+              <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="pca-group-body collapsed" id="group-b">
+              <div class="pca-grid" id="grid-b"></div>
+            </div>
+          </div>
+
+          <!-- Group C: V21–V28 -->
+          <div class="pca-group">
+            <button class="pca-group-header" data-target="group-c">
+              <span>Group C (V21 – V28)</span>
+              <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="pca-group-body collapsed" id="group-c">
+              <div class="pca-grid" id="grid-c"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-nav step-nav--split">
+          <button class="btn btn-ghost" id="btn-step2-back">Back</button>
+          <button class="btn btn-primary btn-arrow" id="btn-step2-next">
+            Next
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SCREEN: Step 3 – Review ===== -->
+    <section class="screen" id="screen-step3">
+      <div class="card">
+        <div class="step-header">
+          <div>
+            <h2 class="step-title">Review Details</h2>
+            <p class="step-subtitle">Confirm all data points before running the prediction model.</p>
+          </div>
+          <div class="step-progress">
+            <span class="progress-dot active"></span>
+            <span class="progress-dot active"></span>
+            <span class="progress-dot active"></span>
+          </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- Transaction Summary -->
+        <div class="summary-box">
+          <div class="summary-title">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            Transaction Summary
+          </div>
+          <div class="summary-grid">
+            <div class="summary-item">
+              <span class="summary-label">AMOUNT</span>
+              <span class="summary-value" id="review-amount">$0.00</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">TIME</span>
+              <span class="summary-value" id="review-time">0s</span>
+            </div>
+          </div>
+          <p class="summary-note">Advanced variables V1-V28 are attached to this request.</p>
+        </div>
+
+        <div class="step-nav step-nav--split">
+          <button class="btn btn-ghost" id="btn-step3-back">Back</button>
+          <button class="btn btn-primary btn-arrow btn-predict" id="btn-predict">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Predict Risk
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SCREEN: Loading ===== -->
+    <section class="screen" id="screen-loading">
+      <div class="card card-centered">
+        <div class="spinner"></div>
+        <p class="loading-text">Analyzing transaction…</p>
+        <p class="loading-sub">Running model <span class="mono">v1.0.4-xgboost</span></p>
+      </div>
+    </section>
+
+    <!-- ===== SCREEN: Result – Safe ===== -->
+    <section class="screen" id="screen-safe">
+      <div class="card card-centered">
+        <div class="icon-circle icon-circle--green anim-pop">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <h2 class="result-title result-title--safe">SAFE TRANSACTION</h2>
+
+        <div class="result-details">
+          <div class="result-row">
+            <span class="result-label">Fraud Probability</span>
+            <span class="result-prob result-prob--safe" id="safe-prob">0.00%</span>
+          </div>
+          <div class="prob-bar-track">
+            <div class="prob-bar prob-bar--safe" id="safe-bar" style="width:0%"></div>
+          </div>
+          <div class="result-row result-row--model">
+            <span class="result-label">Model Version</span>
+            <span class="result-model mono" id="safe-model">v1.0.4-xgboost-mock</span>
+          </div>
+        </div>
+
+        <button class="btn btn-outline-green btn-full" id="btn-restart-safe">Start New Prediction</button>
+      </div>
+    </section>
+
+    <!-- ===== SCREEN: Result – Fraud ===== -->
+    <section class="screen" id="screen-fraud">
+      <div class="card card-centered">
+        <div class="icon-circle icon-circle--red anim-pop">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </div>
+        <h2 class="result-title result-title--fraud">FRAUD TRANSACTION</h2>
+
+        <div class="result-details">
+          <div class="result-row">
+            <span class="result-label">Fraud Probability</span>
+            <span class="result-prob result-prob--fraud" id="fraud-prob">0.00%</span>
+          </div>
+          <div class="prob-bar-track">
+            <div class="prob-bar prob-bar--fraud" id="fraud-bar" style="width:0%"></div>
+          </div>
+          <div class="result-row result-row--model">
+            <span class="result-label">Model Version</span>
+            <span class="result-model mono" id="fraud-model">v1.0.4-xgboost-mock</span>
+          </div>
+        </div>
+
+        <button class="btn btn-outline-green btn-full" id="btn-restart-fraud">Start New Prediction</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== Toast Notification ===== -->
+  <div class="toast" id="toast" role="alert" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
