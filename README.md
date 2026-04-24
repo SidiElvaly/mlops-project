@@ -68,7 +68,7 @@ The system combines machine learning operations best practices with cloud-native
 
 <div align="center">
 
-![Architecture Diagram](docs/architecture.png)
+![Architecture Diagram](architecture.png)
 
 </div>
 
