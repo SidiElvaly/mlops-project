@@ -1,6 +1,6 @@
 <div align="center">
 
-# Credit Card Fraud Detectio
+# Credit Card Fraud Detection
 
 ### End-to-End MLOps Pipeline with CI/CD
 
